@@ -3,7 +3,7 @@ SpringWebArchitect
 
 A collection of service layer abstractions, implementations, and tests.
 
-BEFORE CONTINUING inspect pom.xml and ensure local repository dependencies exist.
+BEFORE BUILDING inspect pom.xml and ensure local repository dependencies exist.
 
 By default your local maven repository lives at
 

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.atomrain.labs.architect.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:mybatis-test.xml"})
+@ContextConfiguration(locations={"classpath:META-INF/mybatis-test.xml"})
 @Transactional
 public class UserDaoImplTest extends AbstractTransactionalTestNGSpringContextTests {
 	

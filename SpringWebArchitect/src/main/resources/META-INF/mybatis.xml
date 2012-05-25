@@ -7,8 +7,8 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     
-    <context:property-placeholder location="classpath:properties/jdbc.properties"/>
-    <context:property-override location="classpath:properties/database.properties"></context:property-override>
+    <context:property-placeholder location="classpath:META-INF/properties/jdbc.properties"/>
+    <context:property-override location="classpath:META-INF/properties/database.properties"></context:property-override>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"></property>

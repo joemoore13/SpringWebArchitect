@@ -8,8 +8,8 @@
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/webapp/applicationContext.xml</config>
-		<config>src/main/resources/mybatis.xml</config>
-		<config>src/main/resources/logging.xml</config>
+		<config>src/main/resources/META-INF/logging.xml</config>
+		<config>src/main/resources/META-INF/mybatis.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

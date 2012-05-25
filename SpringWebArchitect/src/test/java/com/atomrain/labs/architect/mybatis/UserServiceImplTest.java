@@ -20,7 +20,7 @@ import com.atomrain.labs.architect.domain.User;
 import com.atomrain.labs.architect.service.UserServiceException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:META-INF/mybatis-test.xml"})
+@ContextConfiguration(locations={"classpath:META-INF/test-mybatis.xml"})
 @Transactional
 public class UserServiceImplTest extends AbstractTransactionalTestNGSpringContextTests {
 	

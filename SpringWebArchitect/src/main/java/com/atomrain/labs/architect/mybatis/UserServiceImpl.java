@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 			throw new UserServiceException(UserServiceException.GET_USER_BY_EMAIL, new Object[] {email});
 		}
 	}
-
+	
 	/**
 	 * Create a user lazily i.e. no return of created user.
 	 */

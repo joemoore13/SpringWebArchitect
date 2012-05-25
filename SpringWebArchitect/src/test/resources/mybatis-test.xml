@@ -8,11 +8,11 @@
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     
     <!-- These properties do not allow for correct loading when using MapperScannerConfigurer.
-    context:property-placeholder location="classpath:test.database.properties"/>
+    context:property-placeholder location="classpath:properties/test.database.properties"/>
      -->
      
-     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="test-exceptions"/>
+     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:properties/test-exceptions"/>
         <property name="alwaysUseMessageFormat" value="true"/>
         <property name="useCodeAsDefaultMessage" value="true"/>
      </bean>

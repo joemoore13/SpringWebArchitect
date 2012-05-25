@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    
+    <!-- These properties do not allow for correct loading when using MapperScannerConfigurer.
+    context:property-placeholder location="classpath:test.database.properties"/>
+     -->
+     
+     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="test-exceptions"/>
+        <property name="alwaysUseMessageFormat" value="true"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+     </bean>
+    
+    <!-- 
+        In the testing environment because of MapperScannerConfigure the properties
+        herein must be set manually for the ApplicationContext to load correctly.
+    -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/architect-test"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+    
+    <!-- Define Transaction Manger for MyBatis -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="validateExistingTransaction" value="true"/>
+    </bean>
+    
+    <!-- Define MyBatis SQL Session Factory that uses a DataSource -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <!-- Define MyBatis SQL Session from Template-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <constructor-arg name="executorType" value="SIMPLE"/>
+    </bean>
+    
+    <!-- Create a UserMapper -->
+    <!-- The Mappers will be injected automatically when using MapperScannerConfigurer.
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.atomrain.labs.architect.mybatis.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+     -->
+     
+    <!-- 
+        A MapperScannerConfigurer scans for and registers all @Mapper in basePackage.
+        Separate basePackages with semi-colon or comma.
+     -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" depends-on="dataSource">
+        <property name="basePackage" value="com.atomrain.labs.architect.mybatis"/>
+        <property name="annotationClass" value="com.atomrain.labs.architect.mybatis.Mapper"/>
+    </bean>
+    
+    <!-- 
+        Create a UserServiceImpl that uses the UserMapper.
+        The userMapper reference will be proxied at runtime by MapperScannerConfigurer.
+    -->
+    <bean id="userService" class="com.atomrain.labs.architect.mybatis.UserServiceImpl">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+    
+    <!-- Create a UserDaoImp for SQL Session transactions -->
+    <bean id="userDao" class="com.atomrain.labs.architect.mybatis.UserDaoImp">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+    </bean>
+</beans>

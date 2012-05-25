@@ -110,6 +110,7 @@ public class UserServiceImplTest extends AbstractTransactionalTestNGSpringContex
 			exceptions.add(e);
 		}
 		pass = (pass && userById == null); // expect null
+		
 		Assert.assertTrue(pass);
 	}
 
@@ -123,7 +124,6 @@ public class UserServiceImplTest extends AbstractTransactionalTestNGSpringContex
 	@Test
 	public void eagerUserServices() {
 		boolean pass = true;
-
 		// satisfies getEagerUser
 		// satisfies getUserByUsername
 		User user;

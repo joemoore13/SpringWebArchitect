@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			return this.userMapper.getUserById(id);
 		} catch (Exception e) {
-			throw new UserServiceException(UserServiceException.GET_USER_BY_ID);
+			throw new UserServiceException(UserServiceException.GET_USER_BY_ID, new Object[] {id});
 		}
 	}
 	
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			return userMapper.getUserByUsername(username);
 		} catch (Exception e) {
-			throw new UserServiceException(UserServiceException.GET_USER_BY_USERNAME);
+			throw new UserServiceException(UserServiceException.GET_USER_BY_USERNAME, new Object[] {username});
 		}
 	}
 	
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			return userMapper.getUserByEmail(email);
 		} catch (Exception e) {
-			throw new UserServiceException(UserServiceException.GET_USER_BY_EMAIL);
+			throw new UserServiceException(UserServiceException.GET_USER_BY_EMAIL, new Object[] {email});
 		}
 	}
 
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			this.userMapper.createUser(username, password, email);
 		} catch (Exception e) {
-			throw new UserServiceException(UserServiceException.CREATE_LAZY_USER);
+			throw new UserServiceException(UserServiceException.CREATE_LAZY_USER, new Object[] {username, password, email});
 		}
 	}
 	
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			this.userMapper.createUser(username, password, email);
 		} catch (Exception e) {
-			throw new UserServiceException(UserServiceException.CREATE_EAGER_USER);
+			throw new UserServiceException(UserServiceException.CREATE_EAGER_USER, new Object[] {username, password, email});
 		}
 		return getUserByUsername(username);
 	}

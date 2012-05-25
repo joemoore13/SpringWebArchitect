@@ -46,7 +46,7 @@ public class ServiceException extends Exception {
 	}
 	
 	/**
-	 * @return Arguements that may be passed to a message output.
+	 * @return Arguments that were passed to the service call.
 	 */
 	public Object[] getArgs() {
 		return this.args;
